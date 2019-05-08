@@ -7,8 +7,10 @@
 // - Adding methods
 // - Adding additional fields
 
-class App {
-  constructor() {
+class App
+{
+  constructor()
+  {
     const menuElement = document.querySelector('#menu');
     this.menu = new MenuScreen(menuElement);
 
@@ -18,12 +20,44 @@ class App {
     const resultElement = document.querySelector('#results');
     this.results = new ResultsScreen(resultElement);
 
-    // Uncomment this pair of lines to see the "flashcard" screen:
-    // this.menu.hide();
-    // this.flashcards.show();
+    this.Menu_show = this.Menu_show.bind(this);
+    this.Main_show = this.Main_show.bind(this);
+    this.Result_show = this.Result_show.bind(this);
+    this.reMain = this.reMain.bind(this);
 
-    // Uncomment this pair of lines to see the "results" screen:
-    // this.menu.hide();
-    // this.results.show();
+    document.addEventListener('menu_show', this.Menu_show);
+    document.addEventListener('main_show', this.Main_show);
+    document.addEventListener('result_show', this.Result_show);
+    document.addEventListener('remain', this.reMain);
+  }
+
+  Menu_show()
+  {
+    this.flashcards.hide();
+    this.results.hide();
+    this.flashcards.reset();
+    this.menu.show();
+  }
+
+  Main_show(event)
+  {
+    this.menu.hide();
+    this.results.hide();
+    this.flashcards.show(event);
+  }
+
+  Result_show(event)
+  {
+    this.menu.hide();
+    this.flashcards.hide();
+    this.results.show(event);
+  }
+
+  reMain(event)
+  {
+    this.menu.hide();
+    this.results.hide();
+    this.flashcards.reset();
+    this.flashcards.show(event);
   }
 }

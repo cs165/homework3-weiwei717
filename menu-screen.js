@@ -6,16 +6,30 @@
 // - Adding methods
 // - Adding additional fields
 
-class MenuScreen {
-  constructor(containerElement) {
+class MenuScreen
+{
+  constructor(containerElement)
+  {
     this.containerElement = containerElement;
+    this.menus = [];
+    this.menu_create();
   }
 
-  show() {
+  show()
+  {
     this.containerElement.classList.remove('inactive');
   }
 
-  hide() {
+  hide()
+  {
     this.containerElement.classList.add('inactive');
+  }
+  menu_create() 
+  {
+    for(const source of FLASHCARD_DECKS)
+    {
+      const menu = new Menu(this.containerElement, source.title);
+      this.menus.push(menu);
+    }
   }
 }
